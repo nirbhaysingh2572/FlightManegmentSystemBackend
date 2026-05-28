@@ -8,4 +8,4 @@ class FlightRipository extends Repository {
     }
 }
 
-module.exports = FlighttRipository;
+module.exports = FlightRipository;

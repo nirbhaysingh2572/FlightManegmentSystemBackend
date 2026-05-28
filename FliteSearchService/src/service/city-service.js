@@ -1,9 +1,14 @@
 const { CityRepository } = require('../ripository/index');
+const Service = require('./crud_service');
 
 
 const cityRepository = new CityRepository();
 
-class CityService {
+class CityService extends Service{
+    constructor(){
+        super(cityRepository);
+    }
+
     async creatCity({name}){
         try{
             const city = cityRepository.createCity({name});
