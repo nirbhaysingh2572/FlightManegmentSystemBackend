@@ -1,6 +1,10 @@
 const { City } = require('../models/index.js');
+const Repository = require('./crud_ripository.js');
 
-class CityRepository {
+class CityRepository extends Repository{
+    constructor(){
+        super(City);
+    }
     async createCity({name}){
         try{
             const city = await City.create({name});
