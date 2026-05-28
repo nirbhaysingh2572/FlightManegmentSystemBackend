@@ -8,4 +8,5 @@ router.post('/', CityControler.create);
 router.patch('/', CityControler.update);
 router.delete('/', CityControler.destroy);
 router.get('/', CityControler.get);
+
 module.exports = router;
