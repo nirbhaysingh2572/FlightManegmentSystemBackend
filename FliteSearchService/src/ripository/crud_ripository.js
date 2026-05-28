@@ -5,7 +5,7 @@ class Ripository{
 
     async create(data){
         try{
-            const result = await model.create(data);
+            const result = await this.model.create(data);
             return result;
         }
         catch(error){
@@ -16,7 +16,7 @@ class Ripository{
 
     async update(modelId, data){
         try{
-            const instance = await model.findByPk(modelId);
+            const instance = await this.model.findByPk(modelId);
             await instance.update();
             await instance.save();
             return instance;
@@ -29,7 +29,7 @@ class Ripository{
 
     async delete(modelId){
         try{
-            const result = await model.destroy({
+            const result = await this.model.destroy({
                 where:{
                     id:modelId
                 }
@@ -44,7 +44,7 @@ class Ripository{
 
     async find(modelId){
         try{
-            const result = model.findByPk(modelId);
+            const result = this.model.findByPk(modelId);
             return result;
         }
         catch(error){
@@ -55,7 +55,7 @@ class Ripository{
 
     async getAll(filter){
         try{
-            const result = model.getAll(filter);
+            const result = this.model.getAll(filter);
             return result;
         }
         catch(error){
