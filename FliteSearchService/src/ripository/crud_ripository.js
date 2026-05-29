@@ -17,7 +17,7 @@ class Ripository{
     async update(modelId, data){
         try{
             const instance = await this.model.findByPk(modelId);
-            await instance.update();
+            await instance.update(data);
             await instance.save();
             return instance;
         }
@@ -55,7 +55,8 @@ class Ripository{
 
     async getAll(filter){
         try{
-            const result = this.model.getAll(filter);
+            const result = this.model.findAll();
+            console.log(result);
             return result;
         }
         catch(error){

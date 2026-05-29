@@ -1,7 +1,8 @@
 const express = require('express');
-const router = express.Router();
 
 const { CityControler } = require('../../controler/index.js');
+
+const router = express.Router();
 
 
 router.post('/', CityControler.create);
