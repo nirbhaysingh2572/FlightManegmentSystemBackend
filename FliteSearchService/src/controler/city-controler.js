@@ -5,7 +5,7 @@ const cityService = new CityService();
  
 create = async (req,res) => {
     try{
-        const city = await cityService.creatCity(req.body);
+        const city = await cityService.create(req.body);
         return res.status(201).json({
             data : city,
             succses : true,
@@ -25,7 +25,7 @@ create = async (req,res) => {
 
 update = async (req,res) => {
     try{
-        const city = await cityService.updateCity(req.query.id, req.body);
+        const city = await cityService.update(req.params.id, req.body);
         return res.status(201).json({
             data : city,
             succses : true,
@@ -45,7 +45,7 @@ update = async (req,res) => {
 
 destroy = async (req,res) => {
     try{
-        const response = await cityService.deleteCity(req.query.id);
+        const response = await cityService.delete(req.params.id);
         return res.status(201).json({
             data : response,
             succses : true,
@@ -65,7 +65,7 @@ destroy = async (req,res) => {
 
 get = async (req,res) => {
     try{
-        const city = await cityService.getCity(req.query.id);
+        const city = await cityService.get(req.parans.id);
         return res.status(201).json({
             data : city,
             succses : true,
@@ -83,9 +83,30 @@ get = async (req,res) => {
     }
 } 
 
+getAll = async (req,res) =>{
+    try{
+        const city = await cityService.getAll({});
+        return res.status(201).json({
+            data : city,
+            succses : true,
+            massage : "succsesfully fetched city",
+            err :{}
+        })
+    }
+    catch(error){
+        return res.status(201).json({
+            data : {},
+            succses : false,
+            massage : "Not able to fetched city",
+            err :{error}
+        })
+    }
+}
+
 module.exports = {
     create,
     update,
     destroy,
-    get
+    get,
+    getAll
 }
