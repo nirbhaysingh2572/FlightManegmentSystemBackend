@@ -26,7 +26,6 @@ create = async (req,res)=>{
 
 destroy = async (req,res)=>{
     try{
-        console.log(req.params.id);
         const response = await userService.delete(req.params.id);
         return res.status(200).json({
             data: response,

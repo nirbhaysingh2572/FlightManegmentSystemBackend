@@ -16,7 +16,6 @@ class UserRepository{
 
     async delete(userId){
         try{   
-            console.log(userId);
             const response = await User.destroy({
                 where: {
                     id: userId
