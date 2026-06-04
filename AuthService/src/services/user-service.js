@@ -8,8 +8,13 @@ const userRepository = new UserRepository();
 
 
 class UserService{
+
     async create(data){
         try{
+            // ading user name if not sended by clint
+            if(!data.userName){
+                data.userName = data.email.split("@")[0];
+            }
             const user = await userRepository.create(data);
             return user;
         }
@@ -30,11 +35,16 @@ class UserService{
         }
     }
     
-    async sign(data){
+    async signin(data){
         try{
-            const user = await userRepository.getUserByEmail(data.email);
+            let user;
+            if(!data.email)
+                user = await userRepository.getUserByUserName(data.userName);
+            else
+                user = await userRepository.getUserByEmail(data.email);
+            
             if(!user){
-                throw(Error("No user present with this emailId !"));
+                throw(Error("Incorrect userName or email !"));
             }
             const response = bcrypt.compareSync(data.password, user.password);
             if(!response){

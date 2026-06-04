@@ -7,7 +7,12 @@ const userService = new UserService();
 
 create = async (req,res)=>{
     try{
-        const user = await userService.create(req.body);
+        const data = {
+            userName: req.body.userName,
+            email: req.body.email,
+            password: req.body.password
+        };
+        const user = await userService.create(data);
         const {password, ...userdata} = user.toJSON();
         return res.status(StatusCodes.CREATED).json({
             data: userdata,
@@ -55,7 +60,7 @@ signin = async (req, res)=>{
             email: req.body.email,
             password: req.body.password
         };
-        const response = await userService.sign(data);
+        const response = await userService.signin(data);
         return res.status(StatusCodes.OK).json({
             data: response,
             succses:true,
