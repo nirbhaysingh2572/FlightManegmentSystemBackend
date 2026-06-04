@@ -1,9 +1,11 @@
+const { StatusCodes } = require('http-status-codes');
+
 const createUserValidator = (req,res)=>{
     if(
         !req.body.email ||
         !req.body.password
     ){
-        return res.status(400).json({
+        return res.status(StatusCodes.BAD_REQUEST).json({
             data:{},
             status:false,
             massege:"Atrribute missing",

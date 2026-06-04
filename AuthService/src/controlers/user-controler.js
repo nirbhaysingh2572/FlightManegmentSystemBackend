@@ -1,3 +1,5 @@
+const { StatusCodes } = require('http-status-codes');
+
 const { UserService } = require('../services/index');
 
 const userService = new UserService();
@@ -7,7 +9,7 @@ create = async (req,res)=>{
     try{
         const user = await userService.create(req.body);
         const {password, ...userdata} = user.toJSON();
-        return res.status(201).json({
+        return res.status(StatusCodes.CREATED).json({
             data: userdata,
             succses:true,
             massage: "sucessfully created user",
@@ -15,7 +17,7 @@ create = async (req,res)=>{
         });
     }
     catch(error){
-        return res.status(500).json({
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             data: {},
             succses:true,
             massage: "some error in user creation",
@@ -28,7 +30,7 @@ create = async (req,res)=>{
 destroy = async (req,res)=>{
     try{
         const response = await userService.delete(req.params.id);
-        return res.status(200).json({
+        return res.status(StatusCodes.OK).json({
             data: response,
             succses:true,
             massage: "sucessfully deleted user",
@@ -36,7 +38,7 @@ destroy = async (req,res)=>{
         });
     }
     catch(error){
-        return res.status(500).json({
+        return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
             data: {},
             succses:true,
             massage: "some error in user deletion",
