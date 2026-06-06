@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const { UserRepository } = require('../repository/index');
 const { JWT_KEY } = require('../config/server-config');
+const { ServiceError } = require('../utils/error/index');
 
 const userRepository = new UserRepository();
 
@@ -19,8 +20,12 @@ class UserService{
             return user;
         }
         catch(error){
+            if(error.name == "App error" ||
+                error.name == "validationErrror")
+                throw(error);
+
             console.log("some error in service layer");
-            throw(error);
+            throw(new ServiceError());
         }
     }
 
@@ -30,8 +35,11 @@ class UserService{
             return response;
         }
         catch(error){
+            if(error.name == "App error")
+                throw(error);
+
             console.log("some error in service layer");
-            throw(error);
+            throw(new ServiceError());
         }
     }
     
@@ -54,8 +62,11 @@ class UserService{
             return token;
         }
         catch(error){
+            if(error.name == "App error")
+                throw(error);
+
             console.log("some error in service layer");
-            throw(error);
+            throw(new ServiceError());
         }
     }
 
@@ -69,8 +80,11 @@ class UserService{
             return true;
         }
         catch(error){
+            if(error.name == "App error")
+                throw(error);
+            
             console.log("some error in service layer");
-            throw(error);
+            throw(new ServiceError());
         }
     }
 

@@ -7,10 +7,10 @@ class ValidationError extends AppError {
     constructor({
         name = "validationErrror", 
         message = "Invalid input",
-        explation = "You have enter invalid Plese check it and enter again",
+        explanation = "You have enter invalid Plese check it and enter again",
         statusCode = StatusCodes.BAD_REQUEST
     }={}){
-        super({name,message,explation,statusCode});
+        super({name,message,explanation,statusCode});
     }
 }
 

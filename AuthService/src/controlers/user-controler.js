@@ -22,10 +22,10 @@ create = async (req,res)=>{
         });
     }
     catch(error){
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        return res.status(error.statusCode).json({
             data: {},
             succses:false,
-            massage: "some error in user creation",
+            massage: error.message,
             error:error
         });
     }
@@ -43,10 +43,10 @@ destroy = async (req,res)=>{
         });
     }
     catch(error){
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        return res.status(error.statusCode).json({
             data: {},
             succses:false,
-            massage: "some error in user deletion",
+            massage: error.message,
             error:error
         });
     }
@@ -69,10 +69,10 @@ signin = async (req, res)=>{
         });
     }
     catch(error){
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            data:{},
+        return res.status(error.statusCode).json({
+            data: {},
             succses:false,
-            massage: "some error in user sign",
+            massage: error.message,
             error:error
         });
     }
@@ -89,10 +89,10 @@ isAuthenticated = async (req,res) => {
         });
     }
     catch(error){
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            data:{},
+        return res.status(error.statusCode).json({
+            data: {},
             succses:false,
-            massage: "some error in user authentication",
+            massage: error.message,
             error:error
         });
     }

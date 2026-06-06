@@ -5,7 +5,7 @@ const { ValidationError } = require('../utils/error/index');
 
 const createUserValidator = (req,res,next)=>{
     try{
-        if(!req.body.email || typeof req.body.email === string ){
+        if(!req.body.email || typeof req.body.email === String ){
             throw(
                 new ValidationError({
                     message: "Invalid email !",

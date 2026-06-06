@@ -1,4 +1,5 @@
 const { User } = require('../models/index');
+const { AppError,ValidationError } = require('../utils/error/index');
 
 class UserRepository{
 
@@ -8,10 +9,22 @@ class UserRepository{
             return user;
         }
         catch(error){
-            console.log("some error in repository");
-            throw(error);
+            if(error.name == "SequelizeValidationError"){
+
+                let explanation = [];
+                error.errors.forEach((err)=>{
+                    explanation.push(err.message);
+                });
+
+                throw( new ValidationError({
+                    message: "Invalid Atributes !",
+                    explanation
+                }));
+            }
+            cosole.log("some error in repository layer")
+            throw(new AppError());
         }
-    
+
     }
 
     async delete(userId){
@@ -25,7 +38,7 @@ class UserRepository{
         }
         catch(error){
             console.log("some error in repository");
-            throw(error);
+            throw(new AppError());
         }
     }
 
@@ -36,7 +49,7 @@ class UserRepository{
         }
         catch(error){
             console.log("some error in repository");
-            throw(error);
+            throw(new AppError());
         }
     }
 
@@ -51,7 +64,7 @@ class UserRepository{
         }
         catch(error){
             console.log("some error in repository");
-            throw(error);
+            throw(new AppError());
         }
     }
 
@@ -66,7 +79,7 @@ class UserRepository{
         }
         catch(error){
             console.log("some error in repository");
-            throw(error);
+            throw(new AppError());
         }
     }
 
