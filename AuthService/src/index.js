@@ -13,8 +13,9 @@ const serverStart = async ()=>{
     const app = express();
 
     // seting up body-parser
-    app.use(bodyParser.urlencoded())
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended:true}))
+
 
     app.use('/api', ApiRoutes);
 
