@@ -1,4 +1,5 @@
 const { Booking } = require('../models/index');
+const { AppError } = require('../utils/errors/index');
 
 class BookingRepository {
 
@@ -9,7 +10,9 @@ class BookingRepository {
         }
         catch(error){
             console.log("some Error in repository Layer ");
-            throw(error);
+            throw(
+                new AppError()
+            );
         }
     }
 
@@ -22,7 +25,9 @@ class BookingRepository {
         }
         catch(error){
             console.log("some Error in repository Layer ");
-            throw(error);
+            throw(
+                new AppError()
+            );
         }
     }
 
@@ -33,7 +38,9 @@ class BookingRepository {
         }
         catch(error){
             console.log("some Error in repository Layer ");
-            throw(error);
+            throw(
+                new AppError()
+            );
         }
     }
 
@@ -45,7 +52,9 @@ class BookingRepository {
         }
         catch(error){
             console.log("some Error in repository Layer ");
-            throw(error);
+            throw(
+                new AppError()
+            );
         }
     }
 
@@ -56,7 +65,9 @@ class BookingRepository {
         }
         catch(error){
             console.log("some Error in repository Layer ");
-            throw(error);
+            throw(
+                new AppError()
+            );
         }
     }
 
