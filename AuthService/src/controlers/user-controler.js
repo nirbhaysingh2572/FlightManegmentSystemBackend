@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 
 const { UserService } = require('../services/index');
+const { ValidationError } = require('../utils/error/index')
 
 const userService = new UserService();
 
@@ -34,6 +35,12 @@ create = async (req,res)=>{
 
 destroy = async (req,res)=>{
     try{
+        if(!req.params || !req.params.id){
+            throw(new ValidationError({
+                message: "invalid requst !",
+                explanation:"you have not send id for delete request !"
+            }));
+        }
         const response = await userService.delete(req.params.id);
         return res.status(StatusCodes.OK).json({
             data: response,
@@ -77,6 +84,42 @@ signin = async (req, res)=>{
         });
     }
 }
+
+get = async (req, res) => {
+    try{
+        if(!req.params || !req.params.id){
+            throw(new ValidationError({
+                message: "invalid requst !",
+                explanation:"you have not send id for get request !"
+            }));
+        }
+        const user =  await userService.get(req.params.id);
+        if(!user){
+            throw(new ValidationError({
+                message: "invalid requst !",
+                explanation:"user does not exit with given user id !"
+            }));
+        }
+
+        const  {password,...userdata} = user.toJSON();
+
+        return res.status(StatusCodes.OK).json({
+            data: userdata,
+            success: true,
+            message: "successfully fetched user !",
+            error:{}
+        });
+    }
+    catch(error){
+        return res.status(error.statusCode).json({
+            data: {}, 
+            success: false,
+            message: error.message,
+            error: error.explanation
+        });
+    }
+};
+
 
 isAuthenticated = async (req,res) => {
     try{
@@ -145,4 +188,6 @@ module.exports = {
     isAuthenticated,
     isAdmin,
     addRole,
+    get,
+
 }

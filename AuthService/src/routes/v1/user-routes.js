@@ -20,6 +20,10 @@ router.post('/addRole',
     UserControler.addRole
 )
 
+router.get('/:id',
+    UserControler.get
+)
+
 router.get('/isAuthenticated',
     UserControler.isAuthenticated
 );

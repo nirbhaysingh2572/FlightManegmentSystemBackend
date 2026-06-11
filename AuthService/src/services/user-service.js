@@ -78,6 +78,21 @@ class UserService{
         }
     }
 
+    async get(userId){
+        try{
+            const user = await userRepository.getUserById(userId);
+            return user;
+        }
+        catch(error){
+            if(error.name == "App error" ||
+                error.name == "validationErrror")
+                throw(error);
+
+            console.log("some error in service layer");
+            throw(new ServiceError());
+        }
+    }
+
     async isAuthenticated({ token }){
         try{
             const  data = jwt.verify(token, JWT_KEY);
