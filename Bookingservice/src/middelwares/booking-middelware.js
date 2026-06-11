@@ -8,8 +8,7 @@ validateCreateBooking = (req,res, next) => {
         if(!req.body||
             !req.body.userId ||
             !req.body.flightId ||
-            !req.body.seats ||
-            !req.body.price
+            !req.body.seats
         ){
             throw(new ValidationError({
                 message: "missing required attribute !",
@@ -18,7 +17,6 @@ validateCreateBooking = (req,res, next) => {
         }
     }
     catch(error){
-        console.log(error);
         return res.status(error.statusCode).json({
                 data: {},
                 success: false,

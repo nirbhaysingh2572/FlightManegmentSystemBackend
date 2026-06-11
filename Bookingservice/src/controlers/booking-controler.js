@@ -10,8 +10,7 @@ create = async (req, res) =>{
         const data = {
             userId: req.body.userId,
             flightId: req.body.flightId,
-            seats: req.body.seats,
-            price: req.body.price
+            seats: req.body.seats
         }
         const result = await bookingService.create(data);
         return res.status(StatusCodes.CREATED).json({
