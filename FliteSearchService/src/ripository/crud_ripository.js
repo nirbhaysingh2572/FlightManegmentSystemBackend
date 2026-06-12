@@ -1,3 +1,5 @@
+const { AppError, ValidationError } = require('../utils/errors/index');
+
 class Ripository{
     constructor(model){
         this.model = model;
@@ -9,8 +11,21 @@ class Ripository{
             return result;
         }
         catch(error){
+
+            if(error.name == "SequelizeValidationError"){
+                let explanation = [];
+                error.errors.forEach((err)=>{
+                    explanation.push(err.message);
+                });
+
+                throw( new ValidationError({
+                    message: "Invalid Atributes !",
+                    explanation
+                }));
+            }
+
             console.log("Somthing went wrong in ripository layre");
-            throw (error);
+            throw (new AppError());
         }
     }
 
@@ -22,8 +37,19 @@ class Ripository{
             return instance;
         }
         catch(error){
+            if(error.name == "SequelizeValidationError"){
+                let explanation = [];
+                error.errors.forEach((err)=>{
+                    explanation.push(err.message);
+                });
+
+                throw( new ValidationError({
+                    message: "Invalid Atributes !",
+                    explanation
+                }));
+            }
             console.log("Somthing went wrong in ripository layre");
-            throw (error);
+            throw (new AppError());
         }
     }
 
@@ -38,7 +64,7 @@ class Ripository{
         }
         catch(error){
             console.log("Somthing went wrong in ripository layre");
-            throw (error);
+            throw (new AppError());
         }
     }
 
@@ -49,7 +75,7 @@ class Ripository{
         }
         catch(error){
             console.log("Somthing went wrong in ripository layre");
-            throw (error);
+            throw (new AppError());
         }
     }
 
@@ -61,7 +87,7 @@ class Ripository{
         }
         catch(error){
             console.log("Somthing went wrong in ripository layre");
-            throw (error);
+            throw (new AppError());
         }
     }
 

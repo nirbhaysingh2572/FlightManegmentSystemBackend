@@ -1,3 +1,5 @@
+const { ServiceError } = require('../utils/errors/index');
+
 class Service{
     constructor(modelRepository){
         this.modelRepository = modelRepository;
@@ -9,8 +11,13 @@ class Service{
             return result;
         }
         catch(error){
+            if(error.name == "AppError" ||
+                error.name == "VlidationError"
+            )
+                throw(error);
+
             console.log("something went wrong in service layer");
-            throw (error);
+            throw (new ServiceError);
         }
     }
 
@@ -20,8 +27,13 @@ class Service{
             return result;
         }
         catch(error){
+            if(error.name == "AppError" ||
+                error.name == "VlidationError"
+            )
+                throw(error);
+
             console.log("something went wrong in service layer");
-            throw (error);
+            throw (new ServiceError);
         }
     }
 
@@ -31,8 +43,11 @@ class Service{
             return result;
         }
         catch(error){
+            if(error.name == "AppError")
+                throw(error);
+
             console.log("something went wrong in service layer");
-            throw (error);
+            throw (new ServiceError);
         }
     }
 
@@ -42,8 +57,11 @@ class Service{
             return result;
         }
         catch(error){
+            if(error.name == "AppError")
+                throw(error);
+
             console.log("something went wrong in service layer");
-            throw (error);
+            throw (new ServiceError);
         }
     }
 
@@ -53,8 +71,11 @@ class Service{
             return result;
         }
         catch(error){
+            if(error.name == "AppError")
+                throw(error);
+
             console.log("something went wrong in service layer");
-            throw (error);
+            throw (new ServiceError);
         }
     }
     

@@ -1,15 +1,22 @@
 const { StatusCodes } = require('http-status-codes');
 
 const { FlightService }= require('../service/index.js');
-const { ValidationError } = require('../utils/errors/index');
 
 
 const flightService = new FlightService();
  
 create = async (req,res) => {
     try{
-        const flight = await flightService.create(req.body);
-        return res.status(201).json({
+        const data = {
+            flightNumber: req.body.flightNumber,
+            arrivalAirportId: req.body.arrivalAirportId,
+            departureAirportId: req.body.departureAirportId,
+            arrivalTime: req.body.arrivalTime,
+            departureTime: req.body.departureTime,
+            airplaneId: req.body.airplaneId
+        };
+        const flight = await flightService.create(data);
+        return res.status(StatusCodes.CREATED).json({
             data : flight,
             succses : true,
             massage : "succsesfully created flight",
@@ -17,19 +24,27 @@ create = async (req,res) => {
         })
     }
     catch(error){
-        return res.status(200).json({
+        return res.status(error.statusCode).json({
             data : {},
             succses : false,
-            massage : "Not able to creat flight",
-            err :{error}
+            massage : error.message,
+            error :error.explation
         })
     }
 } 
 
 update = async (req,res) => {
     try{
-        const flight = await flightService.update(req.params.id, req.body);
-        return res.status(201).json({
+        const data = {
+            flightNumber: req.body.flightNumber,
+            arrivalAirportId: req.body.arrivalAirportId,
+            departureAirportId: req.body.departureAirportId,
+            arrivalTime: req.body.arrivalTime,
+            departureTime: req.body.departureTime,
+            airplaneId: req.body.airplaneId
+        };
+        const flight = await flightService.update(req.params.id, data);
+        return res.status(StatusCodes.OK).json({
             data : flight,
             succses : true,
             massage : "succsesfully updated flight",
@@ -37,11 +52,11 @@ update = async (req,res) => {
         })
     }
     catch(error){
-        return res.status(201).json({
+        return res.status(error.statusCode).json({
             data : {},
             succses : false,
-            massage : "Not able to update flight",
-            err :error
+            massage : error.message,
+            error :error.explation
         })
     }
 } 
@@ -49,7 +64,7 @@ update = async (req,res) => {
 destroy = async (req,res) => {
     try{
         const response = await flightService.delete(req.params.id);
-        return res.status(201).json({
+        return res.status(StatusCodes.OK).json({
             data : response,
             succses : true,
             massage : "succsesfully delete flight",
@@ -57,11 +72,11 @@ destroy = async (req,res) => {
         })
     }
     catch(error){
-        return res.status(201).json({
+        return res.status(error.statusCode).json({
             data : {},
             succses : false,
-            massage : "Not able to delete flight",
-            err :{error}
+            massage : error.message,
+            error :error.explation
         })
     }
 } 
@@ -69,7 +84,7 @@ destroy = async (req,res) => {
 get = async (req,res) => {
     try{
         const flight = await flightService.find(req.params.id);
-        return res.status(201).json({
+        return res.status(StatusCodes.OK).json({
             data : flight,
             succses : true,
             massage : "succsesfully fetched flight",
@@ -77,11 +92,11 @@ get = async (req,res) => {
         })
     }
     catch(error){
-        return res.status(201).json({
+        return res.status(error.statusCode).json({
             data : {},
             succses : false,
-            massage : "Not able to fetched flight",
-            err :{error}
+            massage : error.message,
+            error :error.explation
         })
     }
 
@@ -90,7 +105,7 @@ get = async (req,res) => {
 getAll = async (req,res) => {
     try{
         const result = await flightService.getAll({});
-        return res.status(201).json({
+        return res.status(StatusCodes.OK).json({
             data : result,
             succses : true,
             massage : "succsesfully fetched flight",
@@ -98,11 +113,11 @@ getAll = async (req,res) => {
         })
     }
     catch(error){
-        return res.status(201).json({
+        return res.status(error.statusCode).json({
             data : {},
             succses : false,
-            massage : "Not able to fetched flight",
-            err :{error}
+            massage : error.message,
+            error :error.explation
         })
     }
 }
