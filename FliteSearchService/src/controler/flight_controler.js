@@ -28,7 +28,7 @@ create = async (req,res) => {
             data : {},
             succses : false,
             massage : error.message,
-            error :error.explation
+            error :error.explanation
         })
     }
 } 
@@ -56,7 +56,7 @@ update = async (req,res) => {
             data : {},
             succses : false,
             massage : error.message,
-            error :error.explation
+            error :error.explanation
         })
     }
 } 
@@ -76,7 +76,7 @@ destroy = async (req,res) => {
             data : {},
             succses : false,
             massage : error.message,
-            error :error.explation
+            error :error.explanation
         })
     }
 } 
@@ -96,7 +96,7 @@ get = async (req,res) => {
             data : {},
             succses : false,
             massage : error.message,
-            error :error.explation
+            error :error.explanation
         })
     }
 
@@ -117,7 +117,7 @@ getAll = async (req,res) => {
             data : {},
             succses : false,
             massage : error.message,
-            error :error.explation
+            error :error.explanation
         })
     }
 }
