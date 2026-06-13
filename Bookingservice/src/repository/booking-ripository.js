@@ -1,5 +1,5 @@
 const { Booking } = require('../models/index');
-const { AppError } = require('../utils/errors/index');
+const { AppError,ValidationError } = require('../utils/errors/index');
 
 class BookingRepository {
 
@@ -9,6 +9,20 @@ class BookingRepository {
             return result;
         }
         catch(error){
+            if(error.name == "SequelizeValidationError" ||
+               error.name == 'SequelizeUniqueConstraintError'
+            ){
+                let explanation = [];
+                error.errors.forEach((err)=>{
+                    explanation.push(err.message);
+                });
+
+                throw( new ValidationError({
+                    message: "Invalid Atributes !",
+                    explanation
+                }));
+            }
+            
             console.log("some Error in repository Layer ");
             throw(
                 new AppError()

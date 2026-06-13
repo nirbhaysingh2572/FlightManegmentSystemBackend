@@ -12,7 +12,7 @@ validateCreateBooking = (req,res, next) => {
         ){
             throw(new ValidationError({
                 message: "missing required attribute !",
-                explanation: "you must have to send valid atributes {userId,flight,seats,price} !"
+                explanation: "you must have to send valid atributes {userId,flight,seats} !"
             }));
         }
     }
