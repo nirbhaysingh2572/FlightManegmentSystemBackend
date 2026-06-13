@@ -35,7 +35,7 @@ class UserService{
             return response;
         }
         catch(error){
-            if(error.name == "App error")
+            if(error.name == "AppError")
                 throw(error);
 
             console.log("some error in service layer");
@@ -68,8 +68,8 @@ class UserService{
             return token;
         }
         catch(error){
-            if(error.name == "App error"||
-                error.name == "validationError"
+            if(error.name == "AppError"||
+                error.name == "ValidationError"
             )
                 throw(error);
 
@@ -84,8 +84,8 @@ class UserService{
             return user;
         }
         catch(error){
-            if(error.name == "App error" ||
-                error.name == "validationErrror")
+            if(error.name == "AppError" ||
+                error.name == "ValidationErrror")
                 throw(error);
 
             console.log("some error in service layer");
@@ -107,8 +107,8 @@ class UserService{
             return true;
         }
         catch(error){
-            if(error.name == "App error" ||
-                error.name == "validationErrror")
+            if(error.name == "AppError" ||
+                error.name == "ValidationErrror")
                 throw(error);
             
             console.log("some error in service layer");
@@ -129,8 +129,8 @@ class UserService{
             return response;
         }
         catch(error){
-            if(error.name == "App error" ||
-                error.name == "validationErrror")
+            if(error.name == "AppError" ||
+                error.name == "ValidationErrror")
                 throw(error);
 
             console.log("some error in service layer ");
@@ -156,8 +156,8 @@ class UserService{
             return response;
         }
         catch(error){
-            if(error.name == "App error"||
-                error.name == "validationError"
+            if(error.name == "AppError"||
+                error.name == "ValidationError"
             )
                 throw(error);
 

@@ -27,7 +27,7 @@ create = async (req,res)=>{
             data: {},
             succses:false,
             massage: error.message,
-            error:error
+            error:error.explanation
         });
     }
 }
@@ -35,12 +35,6 @@ create = async (req,res)=>{
 
 destroy = async (req,res)=>{
     try{
-        if(!req.params || !req.params.id){
-            throw(new ValidationError({
-                message: "invalid requst !",
-                explanation:"you have not send id for delete request !"
-            }));
-        }
         const response = await userService.delete(req.params.id);
         return res.status(StatusCodes.OK).json({
             data: response,
@@ -54,7 +48,7 @@ destroy = async (req,res)=>{
             data: {},
             succses:false,
             massage: error.message,
-            error:error
+            error:error.explanation
         });
     }
 }
@@ -80,19 +74,13 @@ signin = async (req, res)=>{
             data: {},
             succses:false,
             massage: error.message,
-            error:error
+            error:error.explanation
         });
     }
 }
 
 get = async (req, res) => {
     try{
-        if(!req.params || !req.params.id){
-            throw(new ValidationError({
-                message: "invalid requst !",
-                explanation:"you have not send id for get request !"
-            }));
-        }
         const user =  await userService.get(req.params.id);
         if(!user){
             throw(new ValidationError({
@@ -136,7 +124,7 @@ isAuthenticated = async (req,res) => {
             data: {},
             succses:false,
             massage: error.message,
-            error:error
+            error:error.explanation
         });
     }
 }
@@ -156,7 +144,7 @@ isAdmin  = async (req, res) => {
             data: {},
             succses:false,
             message:error.message,
-            error: error
+            error: error.explanation
         });
     }
 }
@@ -176,7 +164,7 @@ addRole = async (req, res) => {
             data: {},
             succses:false,
             message:error.message,
-            error: error
+            error: error.explanation
         });
     }
 }
