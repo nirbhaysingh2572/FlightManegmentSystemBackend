@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 
 const { PORT, DB_SYNC } =  require('./config/serverConfig.js');
+const db = require('./models/index');
 const ApiRoutes = require('./routs/index.js');
 
 
