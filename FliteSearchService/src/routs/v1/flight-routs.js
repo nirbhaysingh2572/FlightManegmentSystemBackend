@@ -1,10 +1,15 @@
 const express = require('express');
 
 const { FlightControler } = require('../../controler/index');
+const  { FlightMiddleware }  = require('../../middelwares/index');
 
 const router = express.Router();
 
-router.post('/', FlightControler.create);
+router.post('/', 
+    FlightMiddleware.createFlightValidator,
+    FlightControler.create
+);
+
 router.patch('/:id', FlightControler.update);
 router.delete('/:id', FlightControler.destroy);
 router.get('/:id', FlightControler.get);
