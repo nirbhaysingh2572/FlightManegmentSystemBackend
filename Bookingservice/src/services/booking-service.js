@@ -2,9 +2,7 @@ const axios = require('axios');
 
 const { BookingRepository } = require('../repository/index');
 const { ServiceError, ValidationError } = require('../utils/errors/index');
-
-const FLIGHT_SERVICE_PATH = "http://localhost:3000/api/v1";
-const USER_SERVICE_PATH = "http://localhost:3001/api/v1";
+const { FLIGHT_SERVICE_PATH, USER_SERVICE_PATH } = require('../config/server-config');
 
 
 const bookingRepository = new BookingRepository();
