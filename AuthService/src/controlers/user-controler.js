@@ -111,7 +111,8 @@ get = async (req, res) => {
 
 isAuthenticated = async (req,res) => {
     try{
-        const response = await userService.isAuthenticated(req.body);
+        const token = req.headers['x-access-token'];
+        const response = await userService.isAuthenticated(token);
         return res.status(StatusCodes.OK).json({
             data: response,
             succses:true,

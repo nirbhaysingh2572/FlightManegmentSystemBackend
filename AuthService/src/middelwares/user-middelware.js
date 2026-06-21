@@ -67,8 +67,32 @@ const signinUserValidator = (req,res,next) => {
     }
 };
 
+const validateisAuthenticated = (req,res,next) => {
+    try{
+        const token = req.headers && req.headers['x-access-token'];
+        if(!token){
+            throw(
+                new ValidationError({
+                    message:"Invalid Token !",
+                    explanation: "You have entered invalid token plese reSignin to get new token !"
+                })
+            );
+        }
+        next(); 
+    }
+    catch(error){
+        return res.status(error.statusCode).json({
+            data: {}, 
+            sucess: false,
+            message:error.message,
+            error: error.explanation
+        }); 
+    }
+}
 
 module.exports = {
     signupUserValidator,
     signinUserValidator,
+    validateisAuthenticated,
+
 }

@@ -21,6 +21,7 @@ router.post('/addRole',
 )
 
 router.get('/isAuthenticated',
+    UserMiddelware.validateisAuthenticated,
     UserControler.isAuthenticated
 );
 

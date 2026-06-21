@@ -93,7 +93,7 @@ class UserService{
         }
     }
 
-    async isAuthenticated({ token }){
+    async isAuthenticated(token){
         try{
             const  data = jwt.verify(token, JWT_KEY);
             const user = await userRepository.getUserById(data.userId);
@@ -104,7 +104,7 @@ class UserService{
                 }));
             }
 
-            return true;
+            return user.userId;
         }
         catch(error){
             if(error.name == "JsonWebTokenError"){
