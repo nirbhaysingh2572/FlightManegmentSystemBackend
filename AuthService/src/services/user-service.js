@@ -115,7 +115,7 @@ class UserService{
             }
 
             if(error.name == "AppError" ||
-                error.name == "ValidationErrror")
+                error.name == "ValidationError")
                 throw(error);
             
             console.log("some error in service layer");
