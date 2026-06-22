@@ -9,7 +9,7 @@ const { FLIGHTSEARCH_SERVICE_PATH,
 
 
 
-const ErrorHandeler = (service)=>{
+const ErrorHandeler = (service = "someService")=>{
     return (err, req, res)=> {
 
         console.log(`some error when creating proxy ${service}: `, err)
@@ -22,22 +22,31 @@ const ErrorHandeler = (service)=>{
     }
 }
 
-const createProxy = (target,service = "someService")=>{
-    return createProxyMiddleware({
-        target,
-        changeOrigin: true,
-        onError: ErrorHandeler(service)
-    });
-}
 
+const FlightSearchServiceProxy =  createProxyMiddleware({
+                                    target,
+                                    changeOrigin: true,
+                                    onError: ErrorHandeler('FlightSearchService')
+                                });
+
+const AuthServiceProxy =  createProxyMiddleware({
+                                    target,
+                                    changeOrigin: true,
+                                    onError: ErrorHandeler('AuthService')
+                                });
+                                
+const BookingServiceProxy =  createProxyMiddleware({
+                                    target,
+                                    changeOrigin: true,
+                                    onError: ErrorHandeler('BookingService')
+                                });
 
 
 
 
 module.exports = {
-    FlightServiceProxy:createProxy(FLIGHTSEARCH_SERVICE_PATH,'FlightSearchService'),
-    AuthServiceProxy: createProxy(AUTH_SERVICE_PATH,'AuthService'),
-    BookingServiceProxy: createProxy(BOOKING_SERVICE_PATH,'BookingServiceProxy'),
-    ReminderServiceProxy: createProxy(REMINDER_SERVICE_PATH,'ReminderServiceProxy'),
+    FlightSearchServiceProxy,
+    AuthServiceProxy,
+    BookingServiceProxy,
 
 }
