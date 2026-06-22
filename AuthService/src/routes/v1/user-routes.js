@@ -17,6 +17,7 @@ router.post('/signin',
 );
 
 router.post('/addRole',
+    UserMiddelware.validateaddRole,
     UserControler.addRole
 )
 

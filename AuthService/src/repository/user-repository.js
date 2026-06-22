@@ -126,14 +126,14 @@ class UserRepository{
             if(!role){
                 throw (new ValidationError({
                     message: "Invalid Role !",
-                    explation: "This Role Not exit recheck your role!"
+                    explanation: "This Role Not exit recheck your role!"
                 }));
             }
             const response = user.addRole(role);
             return response;
         }
         catch(error){
-            if(error.name=='validationError')
+            if(error.name == "ValidationError")
                 throw(error);
             
             console.log("some error in repository layer");

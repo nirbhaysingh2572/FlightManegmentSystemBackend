@@ -90,9 +90,49 @@ const validateisAuthenticated = (req,res,next) => {
     }
 }
 
+const validateaddRole = (req, res, next) => {
+    try{
+        if(!req.body ||
+            (!req.body.userName && 
+                !req.body.email && 
+                !req.body.userId
+            )
+        )
+        {
+            throw(
+                new ValidationError({
+                    message: "Invalid input !",
+                    explanation: "you have not enter user detail to addRole give (email or userName or userId)!"
+                })
+            );
+        }
+
+        if(!req.body.role){
+            throw(
+                new ValidationError({
+                    message: "Invalid input !",
+                    explanation: "you have not enter the role Role proprety is required to add role!"
+                })
+            );
+        }
+
+        next();
+    }
+    catch(error){
+        console.log(error);
+        return res.status(error.statusCode).json({
+            data: {},
+            sucess: false,
+            message: error.message, 
+            error: error.explanation
+        });
+    }
+}
+
 module.exports = {
     signupUserValidator,
     signinUserValidator,
     validateisAuthenticated,
+    validateaddRole,
 
 }

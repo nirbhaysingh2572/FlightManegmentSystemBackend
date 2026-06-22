@@ -154,7 +154,13 @@ isAdmin  = async (req, res) => {
 
 addRole = async (req, res) => {
     try{
-        const response = await userService.addRole(req.body);
+        const data = {
+            email: req.body.email,
+            userName: req.body.userName,
+            userId: req.body.userName,
+            role: req.body.role
+        }
+        const response = await userService.addRole(data);
         return res.status(StatusCodes.OK).json({
             data: response,
             succses: true,

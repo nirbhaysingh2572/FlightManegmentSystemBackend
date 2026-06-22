@@ -150,9 +150,11 @@ class UserService{
             let user;
             if(data.userName)
                 user = await userRepository.getUserByUserName(data.userName);
-            if(!user && data.email)
+            if(!user)
                 user = await userRepository.getUserByEmail(data.email);
-            
+            if(!user)
+                user = await userRepository.getUserById(data.userId);
+
             if(!user){
                 throw(new ValidationError({
                    message: "Incorrect userName or email !",
@@ -168,6 +170,7 @@ class UserService{
             )
                 throw(error);
 
+            console.log(error);
             console.log("some error in service layer");
             throw(new ServiceError());
         }
