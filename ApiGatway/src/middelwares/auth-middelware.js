@@ -64,6 +64,24 @@ async function checkAdminRole(userId){
     }
 }
 
+async function authenticateAndValidateUserId(token,id){
+    try{
+        const userId =  await authenticateUser(token);
+        if(id != userId ){
+            throw(
+                new ValidationError({
+                    message:"Anauthrized !",
+                    explanation: "You are not atherized for this action !"
+                })
+            );
+        }
+    }
+    catch(error){
+        throw(error);
+    }
+}
+
+
 const isAuthenticated = async (req,res, next)=>{
     try{
         const token = req.headers && req.headers['x-access-token'];
@@ -116,7 +134,7 @@ const isAdmin = async (req,res,next)=>{
     }
 }
 
-const checkUserId = async (req, res, next) => {
+const authenticateAndValidateParamsUserId = async (req, res, next) => {
     try{
         const token = req.headers && req.headers['x-access-token'];
         
@@ -129,17 +147,7 @@ const checkUserId = async (req, res, next) => {
             );
         }
 
-        const userId =  await authenticateUser(token);
-        const id = req.params.id;
-        if(id != userId ){
-            throw(
-                new ValidationError({
-                    message:"Anauthrized !",
-                    explanation: "You are not atherized for this action !"
-                })
-            );
-        }
-
+        await authenticateAndValidateUserId(token, req.params.id);        
         next();
     }
     catch(error){
@@ -156,6 +164,6 @@ const checkUserId = async (req, res, next) => {
 module.exports = {
     isAuthenticated,
     isAdmin,
-    checkUserId,
+    authenticateAndValidateParamsUserId,
 
 }
