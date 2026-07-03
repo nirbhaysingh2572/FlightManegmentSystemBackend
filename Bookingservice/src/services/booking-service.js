@@ -16,9 +16,7 @@ class BookingService{
     async create(data){
         try{
             //get user and flight 
-            const GET_USER_URL =  USER_SERVICE_PATH + `/user/${data.userId}`;
             const GET_FLIGHT_URL = FLIGHT_SERVICE_PATH + `/flight/${data.flightId}`;
-            const user = await axios.get(GET_USER_URL);
             const flight = await axios.get(GET_FLIGHT_URL);
             //check does flight have that much sheats or not
             const availbleSeats = flight.data.data.availbleSeats;

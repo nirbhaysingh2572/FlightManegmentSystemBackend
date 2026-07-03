@@ -6,7 +6,6 @@ const { ValidationError } = require('../utils/errors/index');
 validateCreateBooking = (req,res, next) => {
     try{
         if(!req.body||
-            !req.body.userId ||
             !req.body.flightId ||
             !req.body.seats
         ){

@@ -8,7 +8,7 @@ create = async (req, res) =>{
     try{
         //destructure the data before sending furthur
         const data = {
-            userId: req.body.userId,
+            userId: req.headers['x-user-id'],
             flightId: req.body.flightId,
             seats: req.body.seats
         }
