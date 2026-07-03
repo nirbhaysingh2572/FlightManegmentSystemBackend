@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { BookingServiceProxy } = require('../../utils/proxy.js');
+const { isAuthenticated } = require('../../middelwares/auth-middelware.js');
 
 const router = express.Router();
 
@@ -25,16 +26,19 @@ const router = express.Router();
 
 // create a booking only authenticated user
 router.post('/',
+    isAuthenticated,
     BookingServiceProxy
 );
 
 // get a booking  by a authenticated user there only
 router.get('/:id', 
+    isAuthenticated,
     BookingServiceProxy
 );
 
 // get all booking  by a authenticated user there only
 router.get('/', 
+    isAuthenticated,
     BookingServiceProxy
 );
 
