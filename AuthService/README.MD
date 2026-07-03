@@ -71,6 +71,8 @@ The AuthService is a Node.js/Express application. Key dependencies (in `package.
 
 The AuthService exposes RESTful endpoints for authentication. Below is a summary of the main endpoints:
 
+complete path: `api/v1/user/`
+
 | Method | Path               | Request Body                    |
 | ------ | ------------------ | ------------------------------- |
 | POST   | `/signup`          | `{ username, email, password }` |

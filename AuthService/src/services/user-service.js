@@ -103,8 +103,11 @@ class UserService{
                     explanation: "token expired or user does not exit with this token"
                 }));
             }
-
-            return user.id;
+            const response = {
+                userId: user.id,
+                roles: user.Roles.map(Role=>Role.role)
+            }
+            return response;
         }
         catch(error){
             if(error.name == "JsonWebTokenError"){
