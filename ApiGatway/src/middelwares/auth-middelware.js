@@ -16,37 +16,9 @@ async function authenticateUser(token){
                             }
                         });
                         
-        return result.data.data.userId;
-    }
-    catch(error){
-        if(error.name == "AxiosError" && error.response){
-            throw(
-                new ValidationError({
-                    message: error.response.data.message,
-                    explanation: error.response.data.error,
-                    statusCode: error.response.status
-                })
-            );
-        }
-
-        console.log("Authentication service is down !")
-        throw(
-            new ServiceError()
-        );
-    }
-}
-
-async function checkAdminRole(userId){
-     try{
-        //authenticate user
-        const IS_ADMIN_URL = `${AUTH_SERVICE_PATH}/api/v1/user/isAdmin/${userId}`;
-
-        const result = await axios.get(IS_ADMIN_URL);
-        
         return result.data.data;
     }
     catch(error){
-        
         if(error.name == "AxiosError" && error.response){
             throw(
                 new ValidationError({
@@ -63,24 +35,6 @@ async function checkAdminRole(userId){
         );
     }
 }
-
-async function authenticateAndValidateUserId(token,id){
-    try{
-        const userId =  await authenticateUser(token);
-        if(id != userId ){
-            throw(
-                new ValidationError({
-                    message:"Anauthrized !",
-                    explanation: "You are not atherized for this action !"
-                })
-            );
-        }
-    }
-    catch(error){
-        throw(error);
-    }
-}
-
 
 const isAuthenticated = async (req,res, next)=>{
     try{
@@ -94,7 +48,11 @@ const isAuthenticated = async (req,res, next)=>{
             );
         }
 
-        await authenticateUser(token);
+        const user = await authenticateUser(token);
+        // add verified user data to the header of the requset
+        req.headers['x-user-id'] = user.userId;
+        req.userRoles = user.roles;
+
         next(); 
     }
     catch(error){
@@ -109,20 +67,15 @@ const isAuthenticated = async (req,res, next)=>{
 
 const isAdmin = async (req,res,next)=>{
     try{
-        const token = req.headers && req.headers['x-access-token'];
-        if(!token){
-            throw(
-                new ValidationError({
-                    message:"Invalid Token !",
-                    explanation: "This servise require authentication and you have entered invalid token !"
-                })
-            );
-        }
+        if(req.userRoles.find(role => (role=='ADMIN')))
+            return next();
 
-        const userId =  await authenticateUser(token);
-        await checkAdminRole(userId);
-
-        next();
+        throw(
+            new ValidationError({
+                message:"Anauthrized !",
+                explanation: "You are not atherized for this action !"
+            })
+        );
     }
     catch(error){
         return res.status(error.statusCode).json({
@@ -134,21 +87,17 @@ const isAdmin = async (req,res,next)=>{
     }
 }
 
-const authenticateAndValidateParamsUserId = async (req, res, next) => {
+const validateParamsUserId = async (req, res, next) => {
     try{
-        const token = req.headers && req.headers['x-access-token'];
-        
-        if(!token){
-            throw(
-                new ValidationError({
-                    message:"Invalid Token !",
-                    explanation: "This servise require authentication and you have entered invalid token !"
-                })
-            );
-        }
+        if(req.headers['x-user-id'] == req.params.id)
+            return next();
 
-        await authenticateAndValidateUserId(token, req.params.id);        
-        next();
+        throw(
+            new ValidationError({
+                message:"Anauthrized !",
+                explanation: "You are not atherized for this action !"
+            })
+        );
     }
     catch(error){
         return res.status(error.statusCode).json({
@@ -164,6 +113,6 @@ const authenticateAndValidateParamsUserId = async (req, res, next) => {
 module.exports = {
     isAuthenticated,
     isAdmin,
-    authenticateAndValidateParamsUserId,
+    validateParamsUserId,
 
 }

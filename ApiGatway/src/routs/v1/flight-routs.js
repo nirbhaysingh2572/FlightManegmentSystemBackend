@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { FlightSearchServiceProxy } = require('../../utils/proxy.js');
-const { isAdmin  } = require('../../middelwares/auth-middelware.js')
+const { isAuthenticated, isAdmin  } = require('../../middelwares/auth-middelware.js')
 
 const router = express.Router();
 
@@ -22,19 +22,22 @@ const router = express.Router();
 
 
 //create flight rout allow only to admin
-router.post('/', 
+router.post('/',
+    isAuthenticated, 
     isAdmin,
     FlightSearchServiceProxy
 );
 
 // update flight rout allow only admin 
 router.patch('/:id',
+    isAuthenticated,
     isAdmin,
     FlightSearchServiceProxy
 );
 
 // delete flight route allow only adim
 router.delete('/:id',
+    isAuthenticated,
     isAdmin,
     FlightSearchServiceProxy
 );
