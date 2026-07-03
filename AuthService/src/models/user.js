@@ -49,5 +49,18 @@ module.exports = (sequelize, DataTypes) => {
     user.password = bcrypt.hashSync(user.password, saltRound);
   });
 
+  // add default costomer role to every created new user
+  User.afterCreate(async (user, options) => {
+    const customerRole = await sequelize.models.Role.findOne({
+      where: {
+        role: 'COSTOMER',
+      },
+    });
+
+    if (customerRole) {
+      await user.addRole(customerRole);
+    }
+  });
+
   return User;
 };
