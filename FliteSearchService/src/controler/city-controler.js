@@ -7,7 +7,10 @@ const cityService = new CityService();
  
 create = async (req,res) => {
     try{
-        const city = await cityService.create(req.body);
+        const data = {
+            name:req.body.name
+        }
+        const city = await cityService.create(data);
         return res.status(StatusCodes.CREATED).json({
             data : city,
             succses : true,
@@ -27,7 +30,10 @@ create = async (req,res) => {
 
 update = async (req,res) => {
     try{
-        const city = await cityService.update(req.params.id, req.body);
+        const data = {
+            name:req.body.name
+        }
+        const city = await cityService.update(req.params.id, data);
         return res.status(StatusCodes.OK).json({
             data : city,
             succses : true,
