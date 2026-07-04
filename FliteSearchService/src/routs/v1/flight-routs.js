@@ -10,7 +10,11 @@ router.post('/',
     FlightControler.create
 );
 
-router.patch('/:id', FlightControler.update);
+router.patch('/:id',
+    FlightMiddleware.updateFlightValidator,
+    FlightControler.update
+);
+
 router.delete('/:id', FlightControler.destroy);
 router.get('/:id', FlightControler.get);
 router.get('/', FlightControler.getAll);

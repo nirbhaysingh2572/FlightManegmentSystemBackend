@@ -42,8 +42,33 @@ createFlightValidator = async (req,res,next) => {
     }
 };
 
+updateFlightValidator = async(req, res, next) => {
+    try{
+        if(!req.body){
+            throw(
+                new ValidationError({
+                    message:"Missing Atribute !",
+                    explanation: "updating a flight aspect some proprety to be update in req body !"
+                })
+            );
+        }
+
+        next();
+    }
+    catch(error){
+
+        return res.status(error.statusCode).json({
+            data:{},
+            success: false,
+            message: error.message,
+            error: error.explanation
+        });
+    }
+}
+
 
 module.exports = {
     createFlightValidator,
-
+    updateFlightValidator,
+    
 }
