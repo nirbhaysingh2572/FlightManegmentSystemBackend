@@ -7,7 +7,11 @@ const airplaneService = new AirplaneService();
  
 create = async (req,res) => {
     try{
-        const airplane = await airplaneService.create(req.body);
+        const data = {
+            modelNo: req.body.modelNo,
+            capacity: req.body.capacity
+        }
+        const airplane = await airplaneService.create(data);
         return res.status(StatusCodes.CREATED).json({
             data : airplane,
             succses : true,
@@ -27,7 +31,11 @@ create = async (req,res) => {
 
 update = async (req,res) => {
     try{
-        const airplane = await airplaneService.update(req.params.id, req.body);
+        const data = {
+            modelNo: req.body.modelNo,
+            capacity: req.body.capacity
+        }
+        const airplane = await airplaneService.update(req.params.id, data);
         return res.status(StatusCodes.OK).json({
             data : airplane,
             succses : true,

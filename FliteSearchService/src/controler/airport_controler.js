@@ -7,7 +7,12 @@ const airportService = new AirportService();
  
 create = async (req,res) => {
     try{
-        const airport = await airportService.create(req.body);
+        const data = {
+            name: req.body.name,
+            address: req.body.address,
+            cityId: req.body.cityId
+        }
+        const airport = await airportService.create(data);
         return res.status(StatusCodes.CREATED).json({
             data : airport,
             succses : true,
@@ -25,9 +30,14 @@ create = async (req,res) => {
     }
 } 
 
-update = async (req,res) => {s
+update = async (req,res) => {
     try{
-        const airport = await airportService.update(req.params.id, req.body);
+        const data = {
+            name: req.body.name,
+            address: req.body.address,
+            cityId: req.body.cityId
+        }
+        const airport = await airportService.update(req.params.id, data);
         return res.status(StatusCodes.OK).json({
             data : airport,
             succses : true,
