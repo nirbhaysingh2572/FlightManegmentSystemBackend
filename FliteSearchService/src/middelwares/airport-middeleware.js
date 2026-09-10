@@ -26,13 +26,13 @@ validateCreateAirport  = async (req, res, next) =>{
     }
 };
 
-validateCreateAirport  = async (req, res, next) =>{
+validateUpdateAirport  = async (req, res, next) =>{
     try{
         if(!req.body){
             throw (
                 new ValidationError({
                     message: "invalid request!",
-                    explanation:"missing madatory proprety name to update airport !"
+                    explanation:"missing madatory proprety to update airport !"
                 })
             )
         }
